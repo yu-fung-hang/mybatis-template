@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Configuration;
  * @since v6.4.1 2017年12月26日
  */
 @Configuration
-@ConfigurationProperties(prefix="redis")
+@ConfigurationProperties(prefix="spring.data.redis")
 public class RedisConnectionConfig {
 
 	/**
@@ -25,7 +25,7 @@ public class RedisConnectionConfig {
 	 * 配置类型
 	 * @see RedisConfigType
 	 */
-	@Value("${redis.config.type:''}")
+	@Value("${spring.data.redis.config.type:''}")
 	private String configType;
 
 
@@ -33,7 +33,7 @@ public class RedisConnectionConfig {
 	 * 获取配置rest api的url
 	 * 要包含端口号
 	 */
-	@Value("${redis.config.restUrl:''}")
+	@Value("${spring.data.redis.config.restUrl:''}")
 	private  String restUrl;
 
 
