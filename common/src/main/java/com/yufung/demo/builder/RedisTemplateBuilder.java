@@ -28,22 +28,18 @@ import java.util.concurrent.locks.ReentrantLock;
  */
 @Component
 public class RedisTemplateBuilder {
-    private static Logger logger = LoggerFactory.getLogger(RedisTemplateBuilder.class);
-
-    @Autowired
-    private List<IRedisBuilder> redisBuilder;
-
-    @Autowired
-    private RedisConnectionConfig config;
+    private static final Logger logger = LoggerFactory.getLogger(RedisTemplateBuilder.class);
 
     /**
      * 构建锁
      */
     private static final Lock LOCK = new ReentrantLock();
+    @Autowired
+    private List<IRedisBuilder> redisBuilder;
+    @Autowired
+    private RedisConnectionConfig config;
 
     public RedisTemplate<String, Object> build() {
-
-
         JedisSetting.loadPoolConfig(config);
 
         RedisTemplate<String, Object> redisTemplate = null;
@@ -90,5 +86,4 @@ public class RedisTemplateBuilder {
         }
         throw new RuntimeException("{\"cn\":\"错误的redis 配置类型，请检查\", \"en\":\"Wrong redis configuration type, please check\"}");
     }
-
 }
