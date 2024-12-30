@@ -146,25 +146,25 @@ public class RedisConfig extends CachingConfigurerSupport {
 		return  redisson;
 	}
 
-	@Bean
-	public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory factory) {
-		RedisTemplate<String, Object> template = new RedisTemplate<>();
-		RedisSerializer<String> redisSerializer = new StringRedisSerializer();
-		ObjectMapper om = new ObjectMapper();
-		om.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
-		om.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);
-		// “enabled” deserialization 与 security 结合时，反序列化时的配置
-		om.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-		Jackson2JsonRedisSerializer jackson2JsonRedisSerializer = new Jackson2JsonRedisSerializer(om, Object.class);
-		template.setConnectionFactory(factory);
-		//key序列化方式
-		template.setKeySerializer(redisSerializer);
-		//value序列化
-		template.setValueSerializer(jackson2JsonRedisSerializer);
-		//value hashmap序列化
-		template.setHashValueSerializer(jackson2JsonRedisSerializer);
-		return template;
-	}
+//	@Bean
+//	public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory factory) {
+//		RedisTemplate<String, Object> template = new RedisTemplate<>();
+//		RedisSerializer<String> redisSerializer = new StringRedisSerializer();
+//		ObjectMapper om = new ObjectMapper();
+//		om.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
+//		om.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);
+//		// “enabled” deserialization 与 security 结合时，反序列化时的配置
+//		om.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+//		Jackson2JsonRedisSerializer jackson2JsonRedisSerializer = new Jackson2JsonRedisSerializer(om, Object.class);
+//		template.setConnectionFactory(factory);
+//		//key序列化方式
+//		template.setKeySerializer(redisSerializer);
+//		//value序列化
+//		template.setValueSerializer(jackson2JsonRedisSerializer);
+//		//value hashmap序列化
+//		template.setHashValueSerializer(jackson2JsonRedisSerializer);
+//		return template;
+//	}
 
 	@Bean
 	public CacheManager cacheManager(RedisConnectionFactory factory) {
