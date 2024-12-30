@@ -41,34 +41,27 @@ public class RedisClusterBuilder implements IRedisBuilder {
         return new LettuceConnectionFactory(clusterConfiguration);
 	}
 
-
     /**
      * 构建redis cluster的配置
      * @return redis cluster的配置
      */
-    public    RedisClusterConfiguration buildClusterConfig(){
+    public RedisClusterConfiguration buildClusterConfig() {
 
         //cache cloud rest api配置方式
-        if(RedisConfigType.rest.name().equals(config.getConfigType() )){
+        if (RedisConfigType.rest.name().equals(config.getConfigType())) {
             RedisClusterConfiguration clusterConfiguration = this.createRestClusterConfig();
             return  clusterConfiguration;
         }
 
         //手动配置方式
-        if(RedisConfigType.manual.name().equals(config.getConfigType() )){
+        if (RedisConfigType.manual.name().equals(config.getConfigType())) {
             RedisClusterConfiguration  clusterConfiguration = this.createManualClusterConfig();
 
             return  clusterConfiguration;
         }
 
         throw  new RuntimeException("{\"cn\":\"redis 配置错误：错误的redis.config.type，只允许com.enation.eop.sdk.config.redis.configure.RedisConfigType中定义的值\", \"en\":\"Redis configuration error: wrong redis.config.type, only values defined in com.enation.eop.sdk.config.redis.configure.RedisConfigType are allowed\"}");
-
-
     }
-
-
-
-
 
     /**
      * 构建手动方式的 redis cluster配置
@@ -85,14 +78,11 @@ public class RedisClusterBuilder implements IRedisBuilder {
         return clusterConfiguration;
     }
 
-
-
     /**
      * 构建rest方式的cluster 配置
      * @return
      */
     private RedisClusterConfiguration createRestClusterConfig(){
-
         String redisClusterSuffix= "/cache/client/redis/cluster/%s.json?clientVersion=";
         String redisClusterUrl = config.getRestUrl() + redisClusterSuffix+ config.getRestClientVersion();
 
@@ -107,7 +97,6 @@ public class RedisClusterBuilder implements IRedisBuilder {
         }
         if (heartbeatInfo == null) {
         }
-
 
         /** 检查客户端版本 **/
         if (heartbeatInfo.getStatus() == ClientStatusEnum.ERROR.getStatus()) {
@@ -139,10 +128,8 @@ public class RedisClusterBuilder implements IRedisBuilder {
         return  clusterConfiguration;
     }
 
-
 	@Override
 	public RedisType getType() {
 		return RedisType.cluster;
 	}
-
 }
