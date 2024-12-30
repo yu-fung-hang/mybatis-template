@@ -3,7 +3,7 @@ package com.yufung.demo.common;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.redis.connection.RedisServerCommands;
-import org.springframework.data.redis.core.RedisCallback;
+//import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.RedisTemplate;
 
 import java.util.concurrent.locks.ReadWriteLock;
@@ -24,9 +24,9 @@ public class MybatisRedisCache implements org.apache.ibatis.cache.Cache {
     /**
      * 唯一id
      */
-    private String id;
+    private final String id;
 
-    private final Logger logger =  LoggerFactory.getLogger(this.getClass());
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     /**
      * 缓存实现构造器
@@ -58,9 +58,9 @@ public class MybatisRedisCache implements org.apache.ibatis.cache.Cache {
      */
     @Override
     public void putObject(Object key, Object value) {
-        logger.debug("存入key："+id+"--"+ key);
+        logger.debug("存入key：" + id + "--" + key);
         if (value != null) {
-            getRedisTemplate().opsForHash().put(id,key,value);
+            getRedisTemplate().opsForHash().put(id, key, value);
 //            getRedisTemplate().opsForValue().set(getKey(key), value);
         }
     }
@@ -74,10 +74,10 @@ public class MybatisRedisCache implements org.apache.ibatis.cache.Cache {
      */
     @Override
     public Object getObject(Object key) {
-        logger.debug("获取key："+id+"--"+ key);
+        logger.debug("获取key：" + id + "--" + key);
         try {
             if (key != null) {
-                Object obj =getRedisTemplate().opsForHash().get(id, key);
+                Object obj = getRedisTemplate().opsForHash().get(id, key);
                 //System.out.println("cache + "+obj);
 //                Object obj = getRedisTemplate().opsForValue().get(getKey(key));
                 return obj;
@@ -106,7 +106,7 @@ public class MybatisRedisCache implements org.apache.ibatis.cache.Cache {
     @Override
     public Object removeObject(Object key) {
 
-        logger.debug("移除key："+id+"--"+ key);
+        logger.debug("移除key：" + id + "--" + key);
 
         if (key != null) {
             getRedisTemplate().opsForHash().delete(id, key);
@@ -125,8 +125,8 @@ public class MybatisRedisCache implements org.apache.ibatis.cache.Cache {
     @Override
     public int getSize() {
 
-        Long size = getRedisTemplate().execute((RedisCallback<Long>) RedisServerCommands::dbSize);
-        logger.debug("获取大小："+size.intValue());
+        Long size = getRedisTemplate().execute(RedisServerCommands::dbSize);
+        logger.debug("获取大小：" + size.intValue());
         return size.intValue();
     }
 
@@ -147,7 +147,4 @@ public class MybatisRedisCache implements org.apache.ibatis.cache.Cache {
         }
         return redisTemplate;
     }
-
-
 }
-
