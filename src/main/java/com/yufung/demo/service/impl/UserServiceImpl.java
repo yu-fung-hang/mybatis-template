@@ -91,4 +91,8 @@ public class UserServiceImpl implements UserService {
 
         return user;
     }
+
+    public List<User> getUsersByIds(List<Integer> ids) {
+        return userMapper.findByIdList(ids);
+    }
 }

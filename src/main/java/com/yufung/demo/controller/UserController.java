@@ -44,4 +44,9 @@ public class UserController {
     public User updateUserStatus(@PathVariable Integer id, @PathVariable UserStatus status) {
         return userService.updateUserStatus(id, status);
     }
+
+    @GetMapping("/ids")
+    public List<User> getUsersByIds(@RequestParam("ids") List<Integer> ids) {
+        return userService.getUsersByIds(ids);
+    }
 }

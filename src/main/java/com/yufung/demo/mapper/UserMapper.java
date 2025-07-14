@@ -27,4 +27,6 @@ public interface UserMapper extends BaseMapper<User> {
 
     @Select("select * from demo_user where email = #{email} and id != #{id} limit 1")
     User findByEmailAndIdNot(@Param("email") String email, @Param("id") Integer id);
+
+    List<User> findByIdList(List<Integer> idList);
 }

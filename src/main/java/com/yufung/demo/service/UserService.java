@@ -16,4 +16,6 @@ public interface UserService {
     User updateUser(Integer id, UserDTO dto);
 
     User updateUserStatus(Integer id, UserStatus status);
+
+    List<User> getUsersByIds(List<Integer> ids);
 }
